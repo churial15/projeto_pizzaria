@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pizzaria-Lazzarin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #fff8f0;
+      color: #333;
+    }
+
+    header {
+      background-color: #d62828;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 48px;
+      margin-bottom: 5px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      letter-spacing: 1px;
+    }
+
+    header p {
+      font-family: 'Trebuchet MS', sans-serif;
+      font-size: 20px;
+      font-style: italic;
+      margin-top: 8px;
+      color: #ffe8d6;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    }
+
+    nav {
+      background-color: #f77f00;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 18px;
+      padding: 10px 15px;
+      position: relative;
+    }
+
+    nav a.ativo::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 5px;
+      background-color: black;
+    }
+
+    .cartaz-container {
+      position: relative;
+      width: 100%;
+      max-height: 500px;
+      overflow: hidden;
+      background-color: #000;
+    }
+
+    .cartaz-container img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .seta {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-45%);
+      width: 50px;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      z-index: 10;
+      user-select: none;
+      height: 300px;
+    }
+
+    .seta.esquerda {
+      left: 0;
+    }
+
+    .seta.direita {
+      right: 0;
+    }
+
+    .seta::before {
+      content: "";
+      display: inline-block;
+      width: 0;
+      height: 0;
+      border-style: solid;
+    }
+
+    .seta.esquerda::before {
+      border-width: 15px 20px 15px 0;
+      border-color: transparent white transparent transparent;
+    }
+
+    .seta.direita::before {
+      border-width: 15px 0 15px 20px;
+      border-color: transparent transparent transparent white;
+    }
+
+    .descricao-pizza {
+      position: absolute;
+      bottom: -20px;
+      left: 75%;
+      transform: translateX(-50%);
+      background-color: rgba(243, 242, 242, 0.95);
+      color: #000;
+      padding: 20px 30px;
+      border-radius: 12px;
+      max-width: 75%;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
+      font-size: 16px;
+      z-index: 5;
+    }
+
+    .content {
+      padding: 40px;
+      text-align: center;
+    }
+
+    .card {
+      background-color: #ffe8d6;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px auto;
+      max-width: 500px;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .cards-row {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      padding: 30px 20px;
+    }
+
+    .cards-row .card {
+      flex: 1 1 300px;
+      max-width: 400px;
+    }
+
+    footer {
+      background-color: #003049;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background-color:  #802239;
+       color: white;
+      width: 200px;
+      padding: 15px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      border-radius: 0 0 8px 8px;
+      animation: slideDown 0.3s ease forwards;
+      z-index: 100;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .sidebar div {
+  padding: 12px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* linha entre os itens */
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.sidebar div:last-child {
+  border-bottom: none; /* remove a linha do último item */
+}
+
+.sidebar div:hover {
+  background-color: rgba(255, 255, 255, 0.05); /* leve fundo ao passar o mouse */
+  box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.3); /* sombra suave */
+  cursor: pointer;
+}
+
+    .sidebar a {
+      color: white;
+      display: block;
+      color: #333;
+      text-decoration: none;
+      padding: 10px 0;
+      font-weight: bold;
+    }
+
+    .sidebar, .sidebar * {
+  color: white !important;
+}
+
+    .configuracoes-btn {
+      margin-left: auto;
+      background-color: #800020;
+      color: white;
+      display: flex;
+      align-items: center;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      gap: 8px;
+      position: relative;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Cartaz inicial -->
+  <div class="cartaz-container">
+    <span class="seta esquerda">&#8592;</span>
+    <img src="assets/imagens/pizza-strogonoff.png" alt="Pizza de Strogonoff" />
+    <div class="descricao-pizza">
+      <h2>Conheça os pontos fortes de nossa Pizzaria</h2>
+      <p><strong>Pizza de Strogonoff de Frango:</strong></p>
+      <p>Molho especial de tomate, frango desfiado ao creme de strogonoff, coberta com batata palha crocante e queijo derretido;</p>
+      <p><strong>R$ 49,90</strong></p>
+    </div>
+    <span class="seta direita">&#8594;</span>
+  </div>
+
+  <!-- Cabeçalho e navegação -->
+  <header>
+    <h1>Pizzaria Lazzarin</h1>
+    <img src="assets/imagens/logotipo.png" alt="Logo da Pizzaria" style="max-height: 75px; margin: 0;" />
+    <p>Tradição e sabor em cada fatia!</p>
+  </header>
+
+  <nav>
+    <a href="#" class="ativo">Início</a>
+    <a href="#">Cardápio</a>
+    <a href="#">Sobre</a>
+    <a href="#">Contato</a>
+    <div class="configuracoes-btn" onclick="toggleSidebar()">
+      <span style="font-size: 18px;">👤</span>
+      <span>Configurações</span>
+
+      <div class="sidebar" id="sidebar">
+        <a href="#">Perfil</a>
+        <a href="#">Preferências</a>
+        <a href="#">Sair da conta</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Conteúdo principal -->
+  <section class="content cards-row">
+    <div class="card">
+      <h3>Promoção do Dia 🍕</h3>
+      <p>Peça 2 pizzas grandes e ganhe uma Coca-Cola de 2L grátis!</p>
+    </div>
+
+    <div class="card">
+      <h3>Sabores Especiais</h3>
+      <p>Confira nossos sabores exclusivos: Marguerita Premium, Pepperoni Supremo, Quatro Queijos Gorgonzola e muito mais!</p>
+    </div>
+  </section>
+
+  <!-- Rodapé -->
+  <footer>
+    <p>&copy; 2025 Pizzaria Lazzarin - Todos os direitos reservados.</p>
+    <p>Endereço: Rua da família Lazzarin, 120 - Bairro sítio cercado - Curitiba</p>
+  </footer>
+
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.style.display = sidebar.style.display === 'block' ? 'none' : 'block';
+    }
+
+    window.addEventListener('click', function (e) {
+      const sidebar = document.getElementById('sidebar');
+      const configBtn = document.querySelector('.configuracoes-btn');
+      if (!configBtn.contains(e.target)) {
+        sidebar.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>
