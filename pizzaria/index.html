@@ -46,13 +46,18 @@
     }
 
     nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 18px;
-      padding: 10px 15px;
-      position: relative;
-    }
+color: white;
+text-decoration: none;
+font-weight: bold;
+font-size: 18px;
+padding: 10px 15px;
+position: relative;
+border-right: 1px solid rgba(255,255,255,0.5);
+}
+
+nav a:last-of-type {
+border-right: none;
+}
 
     nav a.ativo::after {
       content: "";
@@ -291,11 +296,22 @@
   </div>
 
   <!-- Cabeçalho e navegação -->
-  <header>
+  <header style="position: relative;">
+  <!-- Imagem da fornalha no canto esquerdo -->
+  <img src="assets/imagens/fornalha.png" alt="Fornalha" style="position: absolute; left: 0; top: 50%; transform: translateY(-50%); max-height: 270px;" />
+
+  <!-- Imagem do manjericão no canto direito -->
+  <img src="assets/imagens/folhasmangericao.png" alt="Folhas de Manjericão" style="position: absolute; right: 0; top: 50%; transform: translateY(-50%); max-height: 270px;" />
+
+  <!-- Conteúdo centralizado -->
+  <div style="text-align: center;">
     <h1>Pizzaria Lazzarin</h1>
     <img src="assets/imagens/logotipo.png" alt="Logo da Pizzaria" style="max-height: 75px; margin: 0;" />
     <p>Tradição e sabor em cada fatia!</p>
-  </header>
+  </div>
+</header>
+
+
 
   <nav>
   <a href="#" class="ativo">Início</a>
