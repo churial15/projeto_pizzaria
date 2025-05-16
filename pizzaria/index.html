@@ -46,18 +46,18 @@
     }
 
     nav a {
-color: white;
-text-decoration: none;
-font-weight: bold;
-font-size: 18px;
-padding: 10px 15px;
-position: relative;
-border-right: 1px solid rgba(255,255,255,0.5);
-}
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 18px;
+      padding: 10px 15px;
+      position: relative;
+      border-right: 1px solid rgba(255,255,255,0.5);
+    }
 
-nav a:last-of-type {
-border-right: none;
-}
+    nav a:last-of-type {
+      border-right: none;
+    }
 
     nav a.ativo::after {
       content: "";
@@ -181,9 +181,9 @@ border-right: none;
       top: 100%;
       right: 0;
       background-color:  #802239;
-       color: white;
+      color: white;
       width: 200px;
-      padding: 15px;
+      padding: 0;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
       border-radius: 0 0 8px 8px;
       animation: slideDown 0.3s ease forwards;
@@ -201,34 +201,30 @@ border-right: none;
       }
     }
 
-    .sidebar div {
-  padding: 12px 20px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* linha entre os itens */
-  transition: background-color 0.3s, box-shadow 0.3s;
-}
-
-.sidebar div:last-child {
-  border-bottom: none; /* remove a linha do último item */
-}
-
-.sidebar div:hover {
-  background-color: rgba(255, 255, 255, 0.05); /* leve fundo ao passar o mouse */
-  box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.3); /* sombra suave */
-  cursor: pointer;
-}
-
+    /* Links dentro da sidebar */
     .sidebar a {
       color: white;
       display: block;
-      color: #333;
       text-decoration: none;
-      padding: 10px 0;
+      padding: 12px 20px;
       font-weight: bold;
+      transition: background-color 0.3s, box-shadow 0.3s;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .sidebar a:last-child {
+      border-bottom: none;
+    }
+
+    .sidebar a:hover {
+      background-color: rgba(0, 0, 0, 0.2);
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
     }
 
     .sidebar, .sidebar * {
-  color: white !important;
-}
+      color: white !important;
+    }
 
     .configuracoes-btn {
       margin-left: auto;
@@ -245,103 +241,193 @@ border-right: none;
     }
 
     .acoes-usuario {
-  display: flex;
-  align-items: center;
-  margin-left: auto;
-  gap: 12px; /* controla a distância entre "Pedidos" e "Configurações" */
-}
+      display: flex;
+      align-items: center;
+      margin-left: auto;
+      gap: 12px; /* controla a distância entre "Pedidos" e "Configurações" */
+    }
 
-.pedidos-btn {
-  background-color: #477e07;
-  color: white;
-  display: flex;
-  align-items: center;
-  padding: 8px 12px;
-  border-radius: 8px; 
-  font-weight: bold;
-  cursor: pointer;
-  gap: 8px;
-}
+    .pedidos-btn {
+      background-color: #477e07;
+      color: white;
+      display: flex;
+      align-items: center;
+      padding: 8px 12px;
+      border-radius: 8px; 
+      font-weight: bold;
+      cursor: pointer;
+      gap: 8px;
+    }
 
-.localizacao-btn {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: #e0e0e0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
+    .localizacao-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: #e0e0e0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
 
-.localizacao-btn img {
-  width: 20px;
-  height: 20px;
+    .localizacao-btn img {
+      width: 20px;
+      height: 20px;
+    }
+
+    .pedidos-btn.clicado {
+  background-color: #365904; /* um verde mais escuro */
+  transition: background-color 0.3s ease;
 }
   </style>
 </head>
 <body>
 
-  <!-- Cartaz inicial -->
-  <div class="cartaz-container">
-    <span class="seta esquerda">&#8592;</span>
-    <img src="assets/imagens/pizza-strogonoff.png" alt="Pizza de Strogonoff" />
-    <div class="descricao-pizza">
-      <h2>Conheça os pontos fortes de nossa Pizzaria</h2>
-      <p><strong>Pizza de Strogonoff de Frango:</strong></p>
-      <p>Molho especial de tomate, frango desfiado ao creme de strogonoff, coberta com batata palha crocante e queijo derretido;</p>
-      <p><strong>R$ 49,90</strong></p>
-    </div>
-    <span class="seta direita">&#8594;</span>
+  <div class="cartaz-container" style="position: relative; width: 100vw; height: 500px; overflow: hidden; background-color: #000;">
+<span class="seta esquerda" style="
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 300px;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 10;
+  user-select: none;
+  font-size: 2%; /* ajuste o tamanho se quiser */
+">
+  <span style="display: inline-block; transform: translateX(-3px);">←</span>
+</span>
+
+  <div class="slider-wrapper" style="display: flex; width: 200vw; height: 100%; transition: transform 0.5s ease;">
+    
+    <!-- Slide 1 -->
+    <div class="slide" style="width: 50%; position: relative; height: 500px; overflow: hidden;">
+  <img src="assets/imagens/pizza-strogonoff.png" alt="Pizza de Strogonoff"
+    style="width: 100%; height: 100%; object-fit: cover; object-position: top; display: block;" />
+
+  <div class="descricao-pizza" style="
+  position: absolute;
+  bottom: -9px;
+  right: 20px;
+  background-color: rgba(243, 242, 242, 0.95);
+  color: #000;
+  padding: 20px 30px;
+  border-radius: 12px;
+  max-width: 350px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
+  font-size: 16px;
+  z-index: 5;
+  text-align: left;
+">
+  <h2 style="margin-top: 0;">Conheça os pontos fortes de nossa Pizzaria</h2>
+  <p><strong>Pizza de Strogonoff de Frango:</strong></p>
+  <p>Molho especial de tomate, frango desfiado ao creme de strogonoff, coberta com batata palha crocante e queijo derretido;</p>
+  <p><strong>R$ 49,90</strong></p>
+</div>
+</div>
+
+
+    <!-- Slide 2 -->
+   <div class="slide" style="width: 100vw; position: relative; height: 100%;">
+  <img src="assets/imagens/pizza-cincoqueijos.png" alt="Pizza Cinco Queijos"
+    style="width: 100%; height: 100%; object-fit: cover; object-position: top; display: block;" />
+
+  <div class="descricao-pizza" style="
+    position: absolute;
+    bottom: -9px;
+    left: auto;
+    right: 20px; /* controla a distância da lateral direita do slide */
+    background-color: rgba(243, 242, 242, 0.95);
+    color: #000;
+    padding: 20px 30px;
+    border-radius: 12px;
+    max-width: 350px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
+    font-size: 16px;
+    z-index: 5;
+    text-align: left;
+  ">
+    <h2>Conheça os pontos fortes de nossa Pizzaria</h2>
+    <p><strong>Pizza Cinco Queijos:</strong></p>
+    <p>Molho especial de tomate, cinco queijos selecionados, borda recheada com cheddar cremoso.</p>
+    <p><strong>R$ 54,90</strong></p>
   </div>
+</div>
+</div>
+
+  </div>
+
+<span class="seta direita" style="
+  position: absolute;
+  right: 0;
+  top: 27%;
+  transform: translateY(-50%);
+  width: 55px;
+  height: 300px;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 10;
+  user-select: none;
+  font-size: 2px; /* ajuste o tamanho que quiser */
+">
+  <span style="display: inline-block; transform: translateX(3px);">→</span>
+</span>
+
 
   <!-- Cabeçalho e navegação -->
   <header style="position: relative;">
-  <!-- Imagem da fornalha no canto esquerdo -->
-  <img src="assets/imagens/fornalha.png" alt="Fornalha" style="position: absolute; left: 0; top: 50%; transform: translateY(-50%); max-height: 270px;" />
+    <!-- Imagem da fornalha no canto esquerdo -->
+    <img src="assets/imagens/fornalha.png" alt="Fornalha" style="position: absolute; left: 0; top: 50%; transform: translateY(-50%); max-height: 270px;" />
 
-  <!-- Imagem do manjericão no canto direito -->
-  <img src="assets/imagens/folhasmangericao.png" alt="Folhas de Manjericão" style="position: absolute; right: 0; top: 50%; transform: translateY(-50%); max-height: 270px;" />
+    <!-- Imagem do manjericão no canto direito -->
+    <img src="assets/imagens/folhasmangericao.png" alt="Folhas de Manjericão" style="position: absolute; right: 0; top: 50%; transform: translateY(-50%); max-height: 270px;" />
 
-  <!-- Conteúdo centralizado -->
-  <div style="text-align: center;">
-    <h1>Pizzaria Lazzarin</h1>
-    <img src="assets/imagens/logotipo.png" alt="Logo da Pizzaria" style="max-height: 75px; margin: 0;" />
-    <p>Tradição e sabor em cada fatia!</p>
-  </div>
-</header>
-
-
+    <!-- Conteúdo centralizado -->
+    <div style="text-align: center;">
+      <h1>Pizzaria Lazzarin</h1>
+      <img src="assets/imagens/logotipo.png" alt="Logo da Pizzaria" style="max-height: 75px; margin: 0;" />
+      <p>Tradição e sabor em cada fatia!</p>
+    </div>
+  </header>
 
   <nav>
-  <a href="#" class="ativo">Início</a>
-  <a href="#">Cardápio</a>
-  <a href="#">Sobre</a>
-  <a href="#">Contato</a>
+    <a href="#" class="ativo">Início</a>
+    <a href="#">Cardápio</a>
+    <a href="#">Sobre</a>
+    <a href="#">Contato</a>
 
-  <div class="acoes-usuario">
-  <div class="localizacao-btn">
-    <img src="https://cdn-icons-png.flaticon.com/512/684/684908.png" alt="Localização" />
-  </div>
-  
-  <div class="acoes-usuario">
-    <div class="pedidos-btn">
-      <span style="font-size: 18px;">🛒</span>
-      <span>Pedidos</span>
-    </div>
+    <div class="acoes-usuario">
+      <div class="localizacao-btn">
+        <img src="https://cdn-icons-png.flaticon.com/512/684/684908.png" alt="Localização" />
+      </div>
 
-    <div class="configuracoes-btn" onclick="toggleSidebar()">
-      <span style="font-size: 18px;">👤</span>
-      <span>Configurações</span>
+      <div class="acoes-usuario">
+        <div class="pedidos-btn">
+          <span style="font-size: 18px;">🛒</span>
+          <span>Pedidos</span>
+        </div>
 
-      <div class="sidebar" id="sidebar">
-        <a href="#">Perfil</a>
-        <a href="#">Preferências</a>
-        <a href="#">Sair da conta</a>
+        <div class="configuracoes-btn" onclick="toggleSidebar()">
+          <span style="font-size: 18px;">👤</span>
+          <span>Configurações</span>
+
+          <div class="sidebar" id="sidebar">
+            <a href="#">Perfil</a>
+            <a href="#">Preferências</a>
+            <a href="#">Sair da conta</a>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</nav>
+  </nav>
 
   <!-- Conteúdo principal -->
   <section class="content cards-row">
@@ -374,8 +460,36 @@ border-right: none;
       if (!configBtn.contains(e.target)) {
         sidebar.style.display = 'none';
       }
+    const pedidosBtn = document.querySelector('.pedidos-btn');
+
+pedidosBtn.addEventListener('click', () => {
+  pedidosBtn.classList.add('clicado');
+  setTimeout(() => {
+    pedidosBtn.classList.remove('clicado');
+  }, 300); // 300ms = duração da animação
+});
+
+const sliderWrapper = document.querySelector('.slider-wrapper');
+const setaEsquerda = document.querySelector('.seta.esquerda');
+const setaDireita = document.querySelector('.seta.direita');
+
+let currentIndex = 0; // 0 para strogonoff, 1 para cinco queijos
+const maxIndex = 1;
+
+setaDireita.addEventListener('click', () => {
+  if (currentIndex < maxIndex) {
+    currentIndex++;
+    sliderWrapper.style.transform = `translateX(-${currentIndex * 50}%)`;
+  }
+});
+
+setaEsquerda.addEventListener('click', () => {
+  if (currentIndex > 0) {
+    currentIndex--;
+    sliderWrapper.style.transform = `translateX(-${currentIndex * 50}%)`;
+  }
+});
     });
   </script>
 </body>
 </html>
-
