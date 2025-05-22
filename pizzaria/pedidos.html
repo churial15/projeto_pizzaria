@@ -4,7 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Pedidos - Pizzaria</title>
-
+  
+  <!-- Importando a fonte Dancing Script -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+  
   <style>
     * {
       margin: 0;
@@ -15,17 +18,40 @@
 
     body {
       background-color: #fdf6e3;
-      padding: 20px;
       color: #333;
+      font-family: Arial, sans-serif;
     }
 
     header {
+      position: relative; /* Para usar position absolute nos filhos */
       background-color: #d9480f;
       color: white;
-      padding: 20px;
+      padding: 20px; /* aumenta o padding para espaçamento interno */
       text-align: center;
-      border-radius: 8px;
       margin-bottom: 20px;
+    }
+
+    .img-left, .img-right {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .img-left {
+      left: 0px;
+      height: 126px;
+      width: 250px;
+    }
+
+    .img-right {
+      right: 0px;
+      height: 126px;
+      width: 250px;
+    }
+
+    header h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 41px;
     }
 
     nav a {
@@ -33,6 +59,7 @@
       margin: 0 10px;
       text-decoration: none;
       font-weight: bold;
+      font-size: 18px;
     }
 
     h1, h2 {
@@ -48,7 +75,10 @@
       padding: 15px;
       margin: 10px 0;
       border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+
+        width: 300px; /* OU use max-width: 300px; */
+
     }
 
     .pizza-item h3 {
@@ -68,7 +98,6 @@
       font-weight: bold;
       cursor: pointer;
       gap: 8px;
-      box-sizing: border-box;
       border: none;
       margin-top: 10px;
     }
@@ -87,53 +116,196 @@
       padding: 8px;
       border: 1px solid #ccc;
       border-radius: 4px;
-    }
+    } 
 
     footer {
       text-align: center;
       margin-top: 20px;
       font-size: 0.9em;
     }
-  </style>
 
+    /* Barra inferior para o link ativo */
+    nav a.active {
+      position: relative;
+    }
+
+    nav a.active::after {
+      content: "";
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 102%;
+      height: 4px;
+      background: black;
+    }
+
+    /* Linhas verticais entre os links */
+    nav a:not(:last-child)::after {
+      content: "";
+      display: inline-block;
+      width: 0.5px;
+      height: 27px; 
+      background: white;
+      margin-left: 10px;
+      vertical-align: middle;
+    }
+
+    footer {
+      background-color: #003049;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+
+    nav a {
+  text-decoration: none;
+  color: #ffffff; /* cor original, ajuste conforme quiser */
+  padding: 5px 10px; /* espaço interno opcional */
+  border-radius: 0; /* sem borda arredondada normalmente */
+  transition: all 0.2s ease; /* opcional, para suavizar */
+}
+
+nav a:hover {
+  color: rgba(255, 255, 255, 0.7); /* cor mais pálida, ajuste conforme a cor base */
+  background-color: rgba(255, 255, 255, 0.21); /* opcional, dá leve fundo */
+  border-radius: 8px; /* cantos arredondados */
+}
+
+.botoes-acoes {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* espaço entre os botões */
+  margin-top: 10px;
+}
+
+.remover-btn {
+  background-color: #d90429; /* vermelho vibrante */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 14px;
+  cursor: pointer;
+    position: relative;
+  bottom: -5px;
+    position: relative;
+  left: 15px;  /* empurra para a direita */
+}
+
+.nota-btn {
+  background-color: transparent; /* sem cor de fundo */
+  border: none;
+  font-size: 20px; /* tamanho do emoji */
+  cursor: pointer;
+   position: relative;
+     left: 13px;  /* empurra para a direita */
+
+}
+
+.carrinho-container {
+  display: flex;
+  gap: 20px; /* Espaçamento entre as colunas */
+}
+
+.itens-carrinho {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Espaço entre as pizzas */
+}
+
+.quadrados-carrinho {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Espaço entre os quadrados */
+  justify-content: space-between;
+}
+
+.quadrado {
+  width: 120px;
+  height: 120px;
+  background-color: #eee; /* Cor provisória */
+  border: 2px dashed #ccc; /* Apenas para visualização */
+  border-radius: 8px;
+}
+
+  </style>
 </head>
+
 <body>
 
   <header>
+    <img src="assets/imagens/caixadepizza.png" alt="caixa de pizza" class="img-left">
     <h1>Pizzaria Lazzarin - Pedidos</h1>
+    <img src="assets/imagens/taças.png" alt="taças de vinho" class="img-right">
+    
     <nav>
       <a href="index.html">Início</a>
       <a href="cardapio.html">Cardápio</a>
-      <a href="pedidos.html">Pedidos</a>
+      <a href="pedidos.html" class="active">Pedidos</a>
     </nav>
   </header>
 
   <section class="menu">
-    <h2>Escolha as nossas Pizzas:</h2>
+  <h2>Escolha as nossas Pizzas:</h2>
+  <h4 style="margin-left: 20px;">ADICIONADAS AO CARRINHO:</h4>
 
-<div class="pizza-item">
-      <h3>Strogonoff de Frango:</h3>
-      <p>Deliciosa pizza com calabresa, cebola e queijo derretido.</p>
-      <button class="pedidos-btn">Pedir</button>
+  <div class="carrinho-container">
+
+    <div class="itens-carrinho">
+      <div class="pizza-item">
+        <h3>Strogonoff de Frango:</h3>
+        <p>Deliciosa pizza com calabresa, cebola e queijo derretido.</p>
+        <div class="botoes-acoes">
+          <button class="pedidos-btn">Pedir</button>
+          <button class="remover-btn">Remover</button>
+          <button class="nota-btn">📣</button>
+        </div>
+      </div>
+
+      <div class="pizza-item">
+        <h3>Pizza de Calabresa</h3>
+        <p>Deliciosa pizza com calabresa, cebola e queijo derretido.</p>
+        <div class="botoes-acoes">
+          <button class="pedidos-btn">Pedir</button>
+          <button class="remover-btn">Remover</button>
+          <button class="nota-btn">📣</button>
+        </div>
+      </div>
+
+      <div class="pizza-item">
+        <h3>Bolonhesa:</h3>
+        <p>Molho de tomate, manjericão fresco e mussarela.</p>
+        <div class="botoes-acoes">
+          <button class="pedidos-btn">Pedir</button>
+          <button class="remover-btn">Remover</button>
+          <button class="nota-btn">📣</button>
+        </div>
+      </div>
+
+      <div class="pizza-item">
+        <h3>Cinco Queijos:</h3>
+        <p>Combinação perfeita de mussarela, provolone, parmesão e gorgonzola.</p>
+        <div class="botoes-acoes">
+          <button class="pedidos-btn">Pedir</button>
+          <button class="remover-btn">Remover</button>
+          <button class="nota-btn">📣</button>
+        </div>
+      </div>
     </div>
 
-    <div class="pizza-item">
-      <h3>Pizza de Calabresa</h3>
-      <p>Deliciosa pizza com calabresa, cebola e queijo derretido.</p>
-      <button class="pedidos-btn">Pedir</button>
+    <div class="quadrados-carrinho">
+      <div class="quadrado"></div>
+      <div class="quadrado"></div>
+      <div class="quadrado"></div>
+      <div class="quadrado"></div>
+      <div class="quadrado"></div>
     </div>
 
-    <div class="pizza-item">
-      <h3>Bolonhesa:</h3>
-      <p>Molho de tomate, manjericão fresco e mussarela.</p>
-      <button class="pedidos-btn">Pedir</button>
-    </div>
+  </div>
+</section>
 
-    <div class="pizza-item">
-      <h3>Cinco Queijos:</h3>
-      <p>Combinação perfeita de mussarela, provolone, parmesão e gorgonzola.</p>
-      <button class="pedidos-btn">Pedir</button>
-    </div>
+
   </section>
 
   <section class="personalizado">
@@ -153,8 +325,10 @@
     </form>
   </section>
 
+  <!-- Rodapé -->
   <footer>
-    <p>&copy; 2025 Pizzaria do Lazzarin. Todos os direitos reservados.</p>
+    <p>&copy; 2025 Pizzaria Lazzarin - Todos os direitos reservados.</p>
+    <p>Endereço: Rua da família Lazzarin, 120 - Bairro sítio cercado - Curitiba</p>
   </footer>
 
 </body>
