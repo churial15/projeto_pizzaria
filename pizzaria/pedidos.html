@@ -110,6 +110,7 @@
       padding: 20px;
       border-radius: 8px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      top: 0px;
     }
 
     input, textarea {
@@ -205,7 +206,7 @@ nav a:hover {
 
 .carrinho-container {
   display: flex;
-  gap: 20px; /* Espaçamento entre as colunas */
+  gap: 260px; /* Espaçamento entre as colunas */
 }
 
 .itens-carrinho {
@@ -227,6 +228,11 @@ nav a:hover {
   background-color: #eee; /* Cor provisória */
   border: 2px dashed #ccc; /* Apenas para visualização */
   border-radius: 8px;
+}
+.linha-vertical {
+  width: 2px;              /* Espessura da linha */
+  height: 700px;          /* Altura da linha — pode ajustar */
+  background-color: #333; /* Cor da linha — pode ajustar */
 }
 
   </style>
@@ -294,6 +300,8 @@ nav a:hover {
       </div>
     </div>
 
+    <div class="linha-vertical"></div>
+  <h4 style="margin-left: 20px;">BEBIDAS E REFRIGERANTES:</h4>
     <div class="quadrados-carrinho">
       <div class="quadrado"></div>
       <div class="quadrado"></div>
